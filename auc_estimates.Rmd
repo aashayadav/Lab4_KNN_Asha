@@ -1,0 +1,44 @@
+---
+title: "Lab4_auc_estimates"
+author: "Asha Yadav"
+date: "11/10/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Preliminary run
+
+```{r, include=FALSE}
+library(tidyverse)
+library(tidymodels)
+```
+
+# Preliminary fit model
+```{r}
+prelims <- readRDS(here::here("models", "preliminary_fit.Rds"))
+show_best(prelims, metric = "roc_auc") %>%
+  knitr::kable()
+  
+```
+
+# Model tuning
+
+```{r}
+tuning <- readRDS(here::here("models", "tuning.Rds"))
+show_best(tuning, metric = "roc_auc") %>%
+  knitr::kable()
+
+```
+
+# Final fit
+
+```{r}
+final_fit <- readRDS(here::here("models", "final_fit.Rds"))
+collect_metrics(final_fit) %>%
+  knitr::kable()
+  
+```
+
